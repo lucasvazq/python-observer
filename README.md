@@ -12,7 +12,7 @@ Uses: pylint
 
 `disable: "C0301,C0103"`
 
-**max_line_length**
+**max_line_length:** max line length
 
 `max_line_length: 79`
 
