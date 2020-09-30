@@ -6,11 +6,11 @@ Uses: pylint
 
 **requirements:** packages to install.
 
-`requirements="Django==3.1.1 python-resize-image"`
+`requirements: "Django==3.1.1 python-resize-image"`
 
 **disable:** disable rules of pylint
 
-`disable="C0301,C0103"`
+`disable: "C0301,C0103"`
 
 **max_line_length**
 
