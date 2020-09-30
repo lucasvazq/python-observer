@@ -9,7 +9,7 @@ LABEL "com.github.actions.color"="green"
 # LABEL "homepage"="https://github.com/lgeiger/pyflakes-action"
 # LABEL "maintainer"="Lukas Geiger <lukas.geiger94@gmail.com>"
 
-RUN pip install pyflakes
+RUN pip install pylint
 RUN python --version ; pip --version ; pylint --version
 
 COPY entrypoint.sh /
