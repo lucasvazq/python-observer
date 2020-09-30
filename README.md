@@ -22,9 +22,6 @@ Uses: pylint
 name: Python auto-linter
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
