@@ -1,7 +1,7 @@
 FROM nikolaik/python-nodejs:latest
 
 LABEL "com.github.actions.name"="Python-Observant"
-LABEL "com.github.actions.description"="A tool to check python code."
+LABEL "com.github.actions.description"="A useful tool for checking python code."
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="green"
 
