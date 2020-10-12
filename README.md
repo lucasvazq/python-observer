@@ -1,6 +1,10 @@
 # Python Observant
 
-<details><summary>List of packages that check the code</summary>
+A Github Action that uses a large number of packages to analyze Python code.
+
+The action checks type hints, code format, installed packages, bugs, and bad practices.
+
+<details><summary>List of packages</summary>
 
 - [mypy](http://www.mypy-lang.org/)
 - [pytype](https://google.github.io/pytype/)
@@ -10,20 +14,19 @@
 - [Pyroma](https://github.com/regebro/pyroma)
 - [Flake8](https://gitlab.com/pycqa/flake8)
   - Plugins:
-    - flake8-annotations
-    - flake8-assertive
-    - flake8-broken-line
-    - flake8-builtins
-    - flake8-bugbear
-    - flake8-comprehensions
-    - flake8-debugger
-    - flake8-deprecated
-    - flake8-executable
-    - flake8-import-order
-    - darglint
-    - dlint
-    - hacking
-    - pep8-naming
+    - [flake8-annotations](https://github.com/sco1/flake8-annotations)
+    - [flake8-assertive](https://github.com/jparise/flake8-assertive)
+    - [flake8-broken-line](https://github.com/sobolevn/flake8-broken-line)
+    - [flake8-builtins](https://github.com/gforcada/flake8-builtins)
+    - [flake8-bugbear](https://github.com/PyCQA/flake8-bugbear)
+    - [flake8-comprehensions](https://github.com/adamchainz/flake8-comprehensions)
+    - [flake8-debugger](https://github.com/jbkahn/flake8-debugger)
+    - [flake8-deprecated](https://github.com/gforcada/flake8-deprecated)
+    - [flake8-executable](https://github.com/xuhdev/flake8-executable)
+    - [flake8-import-order](https://github.com/PyCQA/flake8-import-order)
+    - [darglint](https://github.com/terrencepreilly/darglint)
+    - [hacking](https://docs.openstack.org/hacking/latest/)
+    - [pep8-naming](https://github.com/PyCQA/pep8-naming)
 - [pydocstyle](https://github.com/PyCQA/pydocstyle/)
 - [Pylint](https://www.pylint.org/)
 - [isort](https://pycqa.github.io/isort/)
@@ -34,13 +37,15 @@
 - [docformatter](https://github.com/myint/docformatter)
 - [coala](https://coala.io/)
 
-You can found more details looking at [entryping.sh](./entrypoint.sh)
+You can found more details looking at [entrypoint.sh](./entrypoint.sh)
 
 </details>
 
-Recomended tools that aren't include in this action and can be used to improve the python code:
+Here I list some recommended tools that aren't included in this action, but can be used in the development of Python code:
   - [Sourcery.ai](https://sourcery.ai/)
   - [MonkeyType](https://github.com/Instagram/MonkeyType)
+
+## Parameters
 
 <table>
   <thead>
@@ -99,7 +104,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Python Observant
-        uses: lucasvazq/auto-linter@master
+        uses: lucasvazq/python-observant@master
         with:
           requirements: 'pip install -r requirements.txt'
           max_line_length: 119

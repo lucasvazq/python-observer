@@ -1,12 +1,12 @@
 FROM nikolaik/python-nodejs:latest
 
-LABEL "com.github.actions.name"="Auto-linter"
-LABEL "com.github.actions.description"="Python linter checker"
+LABEL "com.github.actions.name"="Python-Observant"
+LABEL "com.github.actions.description"="A tool to check python code."
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="green"
 
-LABEL "repository"="https://github.com/lucasvazq/auto-linter"
-LABEL "homepage"="https://github.com/lucasvazq/auto-linter"
+LABEL "repository"="https://github.com/lucasvazq/python-observant"
+LABEL "homepage"="https://github.com/lucasvazq/python-observant"
 LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
 RUN apt update -y

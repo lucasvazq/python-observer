@@ -124,11 +124,11 @@ fi
 # - mccabe
 ###############################################################################
 
-install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable dlint darglint
+install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
 results_color ">>>>>>>>>>>>>>>> Flake8"
 flake8 . --extend-ignore=ANN101,EXE001,H306,H404,H405,I100,I101,I201 --max-line-length "$MAX_LINE_LENGTH" || true
 results_color "<<<<<<<<<<<<<<<<"
-uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable dlint darglint
+uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
 
 ###############################################################################
 # pydocstyle
