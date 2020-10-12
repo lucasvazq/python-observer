@@ -35,3 +35,8 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.requirements }}
+    - ${{ inputs.max_line_length }}
+    - ${{ inputs.repo_is_package }}
+    - ${{ inputs.taint_models_path }}
