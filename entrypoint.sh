@@ -235,7 +235,7 @@ install coala-bears
 echo "\
 [all]
 language = Python
-bears = BanditBear,coalaBear,FilenameBear,KeywordBear,PyCommentedCodeBear,PyUnusedCodeBear
+bears = coalaBear,FilenameBear,KeywordBear,PyCommentedCodeBear
 files = *.py, **/*.py
 json, non_interactive = True
 file_naming_convention=auto" > .coafile
