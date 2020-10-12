@@ -16,19 +16,27 @@ else
     REPO_IS_A_PACKAGE=false
 fi
 
-function color {
+echo "START START START START START START START START START START START START START START START START START START START START START START START START START START START START "
+echo $MAX_LINE_LENGTH
+echo $REPO_IS_A_PACKAGE
+
+function install_color {
     printf "\e[100m $1 \e[0m\n"
 }
 
+function results_color {
+    printf "\e[105m $1 \e[0m\n"
+}
+
 function install {
-    color "=========================================================================="
-    color "> Installing $*"
+    install_color "=========================================================================="
+    install_color "> Installing $*"
     for arg in "$@"; do
         uninstall "$arg"
         pip install --upgrade "$arg"
     done
     for arg in "$@"; do
-        color "$(pip freeze | grep -E "^$arg==.*")"
+        install_color "$(pip freeze | grep -E "^$arg==.*")"
     done
 }
 
@@ -42,7 +50,9 @@ function uninstall {
 ###############################################################################
 
 install mypy
+results_color ">>>>>>>>>>>>>>>> mypy"
 mypy /"$PWD" --strict --ignore-missing-imports || true
+results_color "<<<<<<<<<<<<<<<<"
 rm -rf .mypy_cache
 uninstall mypy
 
@@ -53,7 +63,9 @@ uninstall mypy
 
 install pytype
 pytype . -d import-error,bad-return-type || true
+results_color ">>>>>>>>>>>>>>>> pytype"
 rm -rf .pytype
+results_color "<<<<<<<<<<<<<<<<"
 uninstall pytype
 
 ###############################################################################
@@ -62,8 +74,10 @@ uninstall pytype
 ###############################################################################
 
 npm install -g pyright
+install_color "$(npm list -g --depth=0 | grep -E "pyright@.*")"
+results_color ">>>>>>>>>>>>>>>> Pyright"
 pyright . || true
-color "$(npm list -g --depth=0 | grep -E "pyright@.*")"
+results_color "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyanalyze
@@ -71,11 +85,13 @@ color "$(npm list -g --depth=0 | grep -E "pyright@.*")"
 ###############################################################################
 
 install pyanalyze
+results_color ">>>>>>>>>>>>>>>> Pyanalyze"
 if [ "$REPO_IS_A_PACKAGE" == true ]; then
     find . -type f -name "*.py" | grep -Ev "^./setup.py" | xargs python -m pyanalyze || true
 else
     find . -type f -name "*.py" | xargs python -m pyanalyze  || true
 fi
+results_color "<<<<<<<<<<<<<<<<"
 uninstall pyanalyze
 
 ###############################################################################
@@ -84,7 +100,9 @@ uninstall pyanalyze
 ###############################################################################
 
 install it
+results_color ">>>>>>>>>>>>>>>> InspectorTiger"
 find . -type f -name "*.py" | xargs it || true
+results_color "<<<<<<<<<<<<<<<<"
 uninstall it
 
 ###############################################################################
@@ -94,7 +112,9 @@ uninstall it
 
 if [ "$REPO_IS_A_PACKAGE" == true ]; then
     install pyroma
+    results_color ">>>>>>>>>>>>>>>> Pyroma"
     pyroma . || true
+    results_color "<<<<<<<<<<<<<<<<"
     uninstall pyroma
 fi
 
@@ -109,7 +129,9 @@ fi
 ###############################################################################
 
 install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable dlint darglint
+results_color ">>>>>>>>>>>>>>>> Flake8"
 flake8 . --extend-ignore=ANN101,EXE001,H306,H404,H405,I100,I101,I201 --max-line-length "$MAX_LINE_LENGTH" || true
+results_color "<<<<<<<<<<<<<<<<"
 uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable dlint darglint
 
 ###############################################################################
@@ -118,7 +140,9 @@ uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-asserti
 ###############################################################################
 
 install pydocstyle
+results_color ">>>>>>>>>>>>>>>> pydocstyle"
 pydocstyle . --ignore=D104,D200,D203,D212,D401,D404,D406,D407,D413 --ignore-decorators="overload" || true
+results_color "<<<<<<<<<<<<<<<<"
 uninstall pydocstyle
 
 ###############################################################################
@@ -127,7 +151,9 @@ uninstall pydocstyle
 ###############################################################################
 
 install pylint
+results_color ">>>>>>>>>>>>>>>> Pylint"
 find . -type f -name "*.py" | xargs pylint --init-hook="import sys; sys.path.append('.')" --disable=too-few-public-methods,cyclic-import --max-line-length="$MAX_LINE_LENGTH" || true
+results_color "<<<<<<<<<<<<<<<<"
 uninstall pylint
 
 ###############################################################################
@@ -136,7 +162,9 @@ uninstall pylint
 ###############################################################################
 
 install isort
+results_color ">>>>>>>>>>>>>>>> isort"
 isort . -rc --diff -sl -l "$MAX_LINE_LENGTH" | colordiff
+results_color "<<<<<<<<<<<<<<<<"
 uninstall isort
 
 ###############################################################################
@@ -145,7 +173,9 @@ uninstall isort
 ###############################################################################
 
 install black
+results_color ">>>>>>>>>>>>>>>> Black"
 black . --diff -l "$MAX_LINE_LENGTH" | colordiff
+results_color "<<<<<<<<<<<<<<<<"
 uninstall black
 
 ###############################################################################
@@ -154,7 +184,9 @@ uninstall black
 ###############################################################################
 
 install autopep8
+results_color ">>>>>>>>>>>>>>>> autopep8"
 autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH" | colordiff
+results_color "<<<<<<<<<<<<<<<<"
 uninstall autopepe8
 
 ###############################################################################
@@ -163,7 +195,9 @@ uninstall autopepe8
 ###############################################################################
 
 install bandit
+results_color ">>>>>>>>>>>>>>>> Bandit"
 bandit . -r || true
+results_color "<<<<<<<<<<<<<<<<"
 uninstall bandit
 
 ###############################################################################
@@ -173,9 +207,13 @@ uninstall bandit
 
 install pyre-check
 printf "yes\n." | pyre init
+results_color ">>>>>>>>>>>>>>>> Pyre"
 pyre || true
+results_color "<<<<<<<<<<<<<<<<"
 if [ ! -z "$INPUT_TAINT_MODELS_PATH" ]; then
+    results_color ">>>>>>>>>>>>>>>> Pysa"
     pyre analyze --taint-models-path="$INPUT_TAINT_MODELS_PATH" || true
+    results_color "<<<<<<<<<<<<<<<<"
 fi
 rm -rf .pyre
 rm .watchmanconfig .pyre_configuration
@@ -187,7 +225,9 @@ uninstall pyre-check
 ###############################################################################
 
 install docformatter
+results_color ">>>>>>>>>>>>>>>> docformatter"
 docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
+results_color "<<<<<<<<<<<<<<<<"
 uninstall docformatter
 
 ###############################################################################
@@ -203,6 +243,13 @@ bears = BanditBear,coalaBear,FilenameBear,KeywordBear,PyCommentedCodeBear,PyUnus
 files = *.py, **/*.py
 json, non_interactive = True
 file_naming_convention=auto" > .coafile
+results_color ">>>>>>>>>>>>>>>> coala-bears"
 coala --flush-cach --non-interactive || true
+results_color "<<<<<<<<<<<<<<<<"
 rm -rf .coafile
 uninstall coala-bears
+
+echo "END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END "
+echo $MAX_LINE_LENGTH
+echo $REPO_IS_A_PACKAGE
+echo "END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END "
