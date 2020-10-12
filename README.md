@@ -54,7 +54,7 @@ Recomended tools that aren't include in this action and can be used to improve t
   <tbody>
     <tr>
       <td>requirements</td>
-      <td>Packages to install</td>
+      <td>Command to install required packages</td>
       <td>str</td>
       <td>""</td>
     </tr>
@@ -101,7 +101,7 @@ jobs:
       - name: Python Observant
         uses: lucasvazq/auto-linter@master
         with:
-          requirements: 'Django==3.1.1 Jinja2'
+          requirements: 'pip install -r requirements.txt'
           max_line_length: 119
           repo_is_package: true
           taint_models_path: 'stubs/taint'

@@ -8,8 +8,8 @@ branding:
 inputs:
   requirements:
     description: |-
-      Packages to install.
-      Example: "Django==3.1.1 Jinja2"
+      Command to install required packages.
+      Example: "pip install -r requirements.txt"
     required: false
     default: ''
   max_line_length:

@@ -10,7 +10,7 @@ echo "$REQUIREMENTS"
 echo "$1"
 
 if [ -z "$INPUT_REQUIREMENTS" ]; then
-    pip install "$INPUT_REQUIREMENTS"
+    "$($INPUT_REQUIREMENTS)"
 fi
 
 if [ -z "$INPUT_MAX_LINE_LENGTH" ]; then
