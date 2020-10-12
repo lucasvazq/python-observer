@@ -17,7 +17,7 @@ else
 fi
 
 function color {
-    echo "\e[100m $1 \e[0m"
+    printf "\e[100m $1 \e[0m"
 }
 
 function install {
