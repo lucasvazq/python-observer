@@ -1,9 +1,9 @@
 # Python Observant
 
-_A Github Action that uses a large number of packages to analyze Python code._
+_A Github Action that uses a large number of packages to analyze Python code._<br>
 _The action checks type hints, code format, requirements, bugs, and bad practices._
 
-<details><summary>List of tools</summary>
+<details><summary>List of included packages</summary>
 
 - [mypy](http://www.mypy-lang.org/)
 - [pytype](https://google.github.io/pytype/)
