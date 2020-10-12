@@ -1,16 +1,16 @@
 #!/bin/bash
 
-if [ -z "$INPUT_REQUIREMENTS" ]; then
+if [ ! -z "$INPUT_REQUIREMENTS" ]; then
     "$($INPUT_REQUIREMENTS)"
 fi
 
-if [ -z "$INPUT_MAX_LINE_LENGTH" ]; then
+if [ ! -z "$INPUT_MAX_LINE_LENGTH" ]; then
     MAX_LINE_LENGTH="$INPUT_MAX_LINE_LENGHT"
 else
     MAX_LINE_LENGTH=79
 fi
 
-if [ -z "$INPUT_REPO_IS_A_PACKAGE" ]; then
+if [ ! -z "$INPUT_REPO_IS_A_PACKAGE" ]; then
     REPO_IS_A_PACKAGE="$INPUT_REPO_IS_A_PACKAGE"
 else
     REPO_IS_A_PACKAGE=false
@@ -174,7 +174,7 @@ uninstall bandit
 install pyre-check
 printf "yes\n." | pyre init
 pyre || true
-if [ -z "$INPUT_TAINT_MODELS_PATH" ]; then
+if [ ! -z "$INPUT_TAINT_MODELS_PATH" ]; then
     pyre analyze --taint-models-path="$INPUT_TAINT_MODELS_PATH" || true
 fi
 rm -rf .pyre
@@ -206,10 +206,3 @@ file_naming_convention=auto" > .coafile
 coala --flush-cach --non-interactive || true
 rm -rf .coafile
 uninstall coala-bears
-
-
-echo "ENDDDDDDD"
-echo "$INPUT_REQUIREMENTS"
-echo "$INPUT_MAX_LINE_LENGTH"
-echo "$MAX_LINE_LENGTH"
-echo "ENDDDDDDD"
