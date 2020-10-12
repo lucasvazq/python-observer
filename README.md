@@ -23,7 +23,7 @@
 ## Example
 
 ```yaml
-name: Python checklist
+name: Python observant
 
 on:
   pull_request:
@@ -31,15 +31,15 @@ on:
       - master
 
 jobs:
-  Python checklist:
-    name: Python checklist
+  Python observant:
+    name: Python observant
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Python checklist
+      - name: Python observant
         uses: lucasvazq/auto-linter@master
         with:
           requirements: "Pillow Jinja2"

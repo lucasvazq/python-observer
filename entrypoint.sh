@@ -150,7 +150,7 @@ uninstall pylint
 ###############################################################################
 
 install isort
-isort . -rc --diff -sl -l "$MAX_LINE_LENGTH" | colordiff
+isort . -rc --diff -sl -l "$MAX_LINE_LENGTH"# | colordiff
 uninstall isort
 
 ###############################################################################
@@ -159,7 +159,7 @@ uninstall isort
 ###############################################################################
 
 install black
-black . --diff -l "$MAX_LINE_LENGTH" | colordiff
+black . --diff -l "$MAX_LINE_LENGTH"# | colordiff
 uninstall black
 
 ###############################################################################
@@ -168,7 +168,7 @@ uninstall black
 ###############################################################################
 
 install autopep8
-autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH" | colordiff
+autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH"# | colordiff
 uninstall autopepe8
 
 ###############################################################################
@@ -201,7 +201,7 @@ uninstall pyre-check
 ###############################################################################
 
 install docformatter
-docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
+docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH"# | colordiff
 uninstall docformatter
 
 ###############################################################################

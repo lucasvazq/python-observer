@@ -11,8 +11,8 @@ LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
 RUN python --version
 RUN pip --version
-RUN apt install colordiff
-RUN apt install npm
+# RUN apt install colordiff
+# RUN apt install npm
 
 # https://github.com/vinta/awesome-python#command-line-tools
 # https://github.com/vinta/awesome-python#algorithms-and-design-patterns
