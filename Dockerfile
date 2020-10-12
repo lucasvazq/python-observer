@@ -17,6 +17,7 @@ RUN pip --version
 # https://github.com/vinta/awesome-python#command-line-tools
 # https://github.com/vinta/awesome-python#algorithms-and-design-patterns
 
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/echo", "Hello world"]
+# COPY entrypoint.sh /
+# RUN chmod +x /entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
