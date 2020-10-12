@@ -10,8 +10,7 @@ LABEL "homepage"="https://github.com/lucasvazq/python-observant"
 LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
 RUN apt update -y
-RUN apt install -y colordiff
-RUN apt install -y watchman
+RUN apt install -y colordiff watchman
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
