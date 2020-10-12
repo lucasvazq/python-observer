@@ -16,10 +16,11 @@ else
     REPO_IS_A_PACKAGE=false
 fi
 
+function color {
+    echo "\e[100m $1 \e[0m"
+}
+
 function install {
-    function color {
-        echo "\e[100m $1 \e[0m"
-    }
     color "=========================================================================="
     color "> Installing $*"
     for arg in "$@"; do
@@ -60,8 +61,9 @@ uninstall pytype
 # https://github.com/microsoft/pyright
 ###############################################################################
 
-# npm install -g pyright
-# pyright . || true
+npm install -g pyright
+pyright . || true
+color "$(npm list -g --depth=0 | grep -E "pyright@.*")"
 
 ###############################################################################
 # Pyanalyze
@@ -104,22 +106,6 @@ fi
 # - PyFlakes
 # - pycodestyle / pep8
 # - mccabe
-#
-# Added by plugins:
-# - pep8-naming
-# - flake8-bugbear
-# - flake8-comprehensions
-# - flake8-assertive
-# - flake8-import-order
-# - hacking
-# - flake8-annotations
-# - flake8-broken-line
-# - flake8-debugger
-# - flake8-builtins
-# - flake8-deprecated
-# - flake8-executable
-# - dlint
-# - darglint
 ###############################################################################
 
 install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable dlint darglint
@@ -150,7 +136,7 @@ uninstall pylint
 ###############################################################################
 
 install isort
-isort . -rc --diff -sl -l "$MAX_LINE_LENGTH"# | colordiff
+isort . -rc --diff -sl -l "$MAX_LINE_LENGTH" | colordiff
 uninstall isort
 
 ###############################################################################
@@ -159,7 +145,7 @@ uninstall isort
 ###############################################################################
 
 install black
-black . --diff -l "$MAX_LINE_LENGTH"# | colordiff
+black . --diff -l "$MAX_LINE_LENGTH" | colordiff
 uninstall black
 
 ###############################################################################
@@ -168,7 +154,7 @@ uninstall black
 ###############################################################################
 
 install autopep8
-autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH"# | colordiff
+autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH" | colordiff
 uninstall autopepe8
 
 ###############################################################################
@@ -186,7 +172,7 @@ uninstall bandit
 ###############################################################################
 
 install pyre-check
-printf 'yes\n.' | pyre init
+printf "yes\n." | pyre init
 pyre || true
 if [ -z "$INPUT_TAINT_MODELS_PATH" ]; then
     pyre analyze --taint-models-path="$INPUT_TAINT_MODELS_PATH" || true
@@ -201,7 +187,7 @@ uninstall pyre-check
 ###############################################################################
 
 install docformatter
-docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH"# | colordiff
+docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
 uninstall docformatter
 
 ###############################################################################

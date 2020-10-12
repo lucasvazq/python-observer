@@ -9,12 +9,9 @@ LABEL "repository"="https://github.com/lucasvazq/auto-linter"
 LABEL "homepage"="https://github.com/lucasvazq/auto-linter"
 LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
-RUN python --version
-RUN pip --version
-# RUN apt update -y
+RUN apt update -y
 RUN apt install -y colordiff
 
-ENTRYPOINT ["/bin/echo", "Hello world"]
-# COPY entrypoint.sh /
-# RUN chmod +x /entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
