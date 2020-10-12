@@ -1,6 +1,4 @@
-# Python auto-linter
-
-Uses: pylint
+# Python PR checklist
 
 ## Usage:
 
@@ -8,18 +6,24 @@ Uses: pylint
 
 `requirements: "Django==3.1.1 python-resize-image"`
 
-**disable:** disable rules of pylint
-
-`disable: "C0301,C0103"`
-
-**max_line_length:** max line length
+**max_line_length:** max line length (default 79).
 
 `max_line_length: 79`
+
+**repo_is_package:** boolean used to define if repo is a package (default false).
+
+`repo_is_package: true`
+
+### Pysa
+
+**taint_models_path:** path to taint folder where are stored all *.pysa files and the taint config. If path is not provided, Pysa don't execute.
+
+`taint_models_path: stubs/taint`
 
 ## Example
 
 ```yaml
-name: Python auto-linter
+name: Python checklist
 
 on:
   pull_request:
@@ -27,18 +31,18 @@ on:
       - master
 
 jobs:
-  auto-linter:
-    name: Python auto-linter
+  Python checklist:
+    name: Python checklist
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: pylint
+      - name: Python checklist
         uses: lucasvazq/auto-linter@master
         with:
           requirements: "Pillow Jinja2"
-          disable: "R0903"
           max_line_length: 119
+          repo_is_package: true
 ```

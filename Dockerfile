@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3-alpine
 
 LABEL "com.github.actions.name"="Auto-linter"
 LABEL "com.github.actions.description"="Python linter checker"
@@ -9,11 +9,13 @@ LABEL "repository"="https://github.com/lucasvazq/auto-linter"
 LABEL "homepage"="https://github.com/lucasvazq/auto-linter"
 LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
-RUN pip install pylint
-
 RUN python --version
 RUN pip --version
-RUN pylint --version
+RUN apt install colordiff
+RUN apt install npm
+
+# https://github.com/vinta/awesome-python#command-line-tools
+# https://github.com/vinta/awesome-python#algorithms-and-design-patterns
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
