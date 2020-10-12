@@ -244,6 +244,3 @@ coala --flush-cach --non-interactive || true
 results_color "<<<<<<<<<<<<<<<<"
 rm -rf .coafile
 uninstall coala-bears
-
-echo "END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END END "
-echo $MAX_LINE_LENGTH

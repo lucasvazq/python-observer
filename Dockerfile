@@ -11,6 +11,7 @@ LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
 RUN apt update -y
 RUN apt install -y colordiff
+RUN apt install -y watchman
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
