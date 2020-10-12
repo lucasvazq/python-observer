@@ -11,14 +11,8 @@ LABEL "maintainer"="Lucas Vazquez <lucas5zvazquez@gmail.com>"
 
 RUN python --version
 RUN pip --version
-RUN apt update -y
+# RUN apt update -y
 RUN apt install -y colordiff
-# RUN cmd.cat/colordiff colordiff
-# RUN apt install npm
-
-# https://github.com/vinta/awesome-python#command-line-tools
-# https://github.com/vinta/awesome-python#algorithms-and-design-patterns
-
 
 ENTRYPOINT ["/bin/echo", "Hello world"]
 # COPY entrypoint.sh /
