@@ -1,0 +1,37 @@
+name: 'Python observer'
+description: 'Run some analysis trough your python code'
+author: 'https://github.com/lucasvazq'
+branding:
+  icon: 'code'
+  color: '#blue'
+
+inputs:
+  requirements:
+    description: |-
+      Packages to install.
+      Example: "Django==3.1.1 Jinja2"
+    required: false
+    default: ''
+  max_line_length:
+    description: |-
+      Max line length.
+      Example: 119
+    required: false
+    default: 79
+  repo_is_package:
+    description: |-
+      Define if repo is a package.
+      Example: true
+    required: false
+    default: false
+  taint_models_path:
+    description: |-
+      Path to taint folder where are stored all *.pysa files and the taint config.
+      If path is not provided, Pysa don't execute.
+      Example: "stubs/taint"
+    required: false
+    default: ''
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
