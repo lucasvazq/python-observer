@@ -1,4 +1,4 @@
-FROM python3.9-nodejs14-alpine
+FROM nikolaik/python-nodejs:latest
 
 LABEL "com.github.actions.name"="Auto-linter"
 LABEL "com.github.actions.description"="Python linter checker"
