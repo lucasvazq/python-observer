@@ -12,6 +12,7 @@ RUN apt update -y
 RUN apt install -y colordiff
 
 # Install watchman
+RUN apt install libssl-dev
 RUN apt install libcrypto1.0 libgcc libstdc++
 COPY --from=icalialabs/watchman:4-alpine3.4 /usr/local/bin/watchman* /usr/local/bin/
 RUN mkdir -p /usr/local/var/run/watchman
