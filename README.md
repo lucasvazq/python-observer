@@ -1,4 +1,4 @@
-# Python Observant
+# Python Observer
 
 _A Github Action that uses a large number of packages to analyze Python code._<br>
 _The action checks type hints, code format, requirements, bugs, and bad practices._
@@ -86,24 +86,18 @@ Here I list some recommended tools that aren't included in this action, but can 
 ## Example
 
 ```yaml
-name: Python Observant
+name: Python Observer
 
-on:
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
-  Python-Observant:
-    name: Python Observant
+  Python-Observer:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: Python Observant
-        uses: lucasvazq/python-observant@master
+      - name: Run Python Observer
+        uses: lucasvazq/python-observer@master
         with:
           requirements: 'pip install -r requirements.txt'
           max_line_length: 119
