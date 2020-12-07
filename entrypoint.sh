@@ -29,7 +29,7 @@ function install {
     install_color "> Installing $*"
     for arg in "$@"; do
         uninstall "$arg"
-        pip install --upgrade "$arg"
+        pip install "$arg"
     done
     for arg in "$@"; do
         install_color "$(pip freeze | grep -E "^$arg==.*")"
