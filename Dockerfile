@@ -1,4 +1,4 @@
-# Install Watchman
+# Install Watchman.
 
 FROM alpine:3.8 AS runtime
 RUN apk add --no-cache libcrypto1.0 libgcc libstdc++
@@ -37,7 +37,7 @@ COPY --from=builder /usr/local/bin/watchman* /usr/local/bin/
 COPY --from=builder /usr/local/share/doc/watchman-4.9.0 /usr/local/share/doc/watchman-4.9.0
 COPY --from=builder /usr/local/var/run/watchman /usr/local/var/run/watchman
 
-# Install Python and Node, and execute the entrypoint
+# Install Python and Node, and execute the entrypoint.
 
 FROM nikolaik/python-nodejs:latest
 RUN apt update -y
