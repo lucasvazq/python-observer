@@ -137,7 +137,7 @@ uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-asserti
 
 install pydocstyle
 results_color ">>>>>>>>>>>>>>>> pydocstyle"
-pydocstyle . --ignore=D104,D200,D203,D212,D401,D404,D406,D407,D413 --ignore-decorators="overload" || true
+pydocstyle . --ignore=D200,D203,D212,D406,D407,D413 --ignore-decorators="overload" || true
 results_color "<<<<<<<<<<<<<<<<"
 uninstall pydocstyle
 
@@ -159,7 +159,7 @@ uninstall pylint
 
 install isort
 results_color ">>>>>>>>>>>>>>>> isort"
-isort . -rc --diff -sl -l "$MAX_LINE_LENGTH" | colordiff
+isort . --diff --sl -l "$MAX_LINE_LENGTH" | colordiff
 results_color "<<<<<<<<<<<<<<<<"
 uninstall isort
 
