@@ -65,20 +65,20 @@ COPY --from=builder /usr/local/var/run/watchman /usr/local/var/run/watchman
 
 
 # Start from whatever image you are using - this is a node app example:
-FROM node:8-alpine
+# // FROM node:8-alpine
 
 # Install the packages required for watchman to work properly:
-RUN apk add --no-cache libcrypto1.0 libgcc libstdc++
+# // RUN apk add --no-cache libcrypto1.0 libgcc libstdc++
 
 # Copy the watchman executable binary directly from our image:
-COPY --from=icalialabs/watchman:4-alpine3.4 /usr/local/bin/watchman* /usr/local/bin/
+# // COPY --from=icalialabs/watchman:4-alpine3.4 /usr/local/bin/watchman* /usr/local/bin/
 
 # Create the watchman STATEDIR directory:
-RUN mkdir -p /usr/local/var/run/watchman \
- && touch /usr/local/var/run/watchman/.not-empty
+# RUN mkdir -p /usr/local/var/run/watchman \
+#  && touch /usr/local/var/run/watchman/.not-empty
 
 # (Optional) Copy the compiled watchman documentation:
-COPY --from=icalialabs/watchman:4-alpine3.4 /usr/local/share/doc/watchman* /usr/local/share/doc/
+# // COPY --from=icalialabs/watchman:4-alpine3.4 /usr/local/share/doc/watchman* /usr/local/share/doc/
 
 FROM nikolaik/python-nodejs:latest
 
