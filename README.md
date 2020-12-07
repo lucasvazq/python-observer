@@ -34,7 +34,6 @@ _The action checks type hints, code format, requirements, bugs, and bad practice
 - [Bandit](https://bandit.readthedocs.io/en/latest/)
 - [Pyre and Pysa](https://pyre-check.org)
 - [docformatter](https://github.com/myint/docformatter)
-- [coala](https://coala.io/)
 
 You can found more details looking at [entrypoint.sh](./entrypoint.sh)
 

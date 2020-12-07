@@ -225,22 +225,3 @@ results_color ">>>>>>>>>>>>>>>> docformatter"
 docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
 results_color "<<<<<<<<<<<<<<<<"
 uninstall docformatter
-
-###############################################################################
-# coala
-# https://coala.io/
-###############################################################################
-
-install coala-bears
-echo "\
-[all]
-language = Python
-bears = coalaBear,FilenameBear,KeywordBear,PyCommentedCodeBear
-files = *.py, **/*.py
-json, non_interactive = True
-file_naming_convention=auto" > .coafile
-results_color ">>>>>>>>>>>>>>>> coala-bears"
-coala --flush-cach --non-interactive || true
-results_color "<<<<<<<<<<<<<<<<"
-rm -rf .coafile
-uninstall coala-bears
