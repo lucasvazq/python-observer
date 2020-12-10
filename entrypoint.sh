@@ -16,23 +16,14 @@ else
     REPO_IS_A_PACKAGE=false
 fi
 
-function install_color {
-    printf "\e[100m $1 \e[0m\n"
-}
-
-function results_color {
+function color_print {
     printf "\e[105m $1 \e[0m\n"
 }
 
 function install {
-    install_color "=========================================================================="
-    install_color "> Installing $*"
     for arg in "$@"; do
-        uninstall "$arg"
-        pip install "$arg"
-    done
-    for arg in "$@"; do
-        install_color "$(pip freeze | grep -E "^$arg==.*")"
+        uninstall "$arg" > /dev/null 2>&1
+        pip install "$arg" > /dev/null 2>&1
     done
 }
 
@@ -45,61 +36,60 @@ function uninstall {
 # http://www.mypy-lang.org/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> mypy"
 install mypy
-results_color ">>>>>>>>>>>>>>>> mypy"
 mypy /"$PWD" --strict --ignore-missing-imports || true
-results_color "<<<<<<<<<<<<<<<<"
-rm -rf .mypy_cache
+rm -rf .mypy_cache > /dev/null 2>&1
 uninstall mypy
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # pytype
 # https://google.github.io/pytype/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> pytype"
 install pytype
 pytype . -d import-error,bad-return-type || true
-results_color ">>>>>>>>>>>>>>>> pytype"
-rm -rf .pytype
-results_color "<<<<<<<<<<<<<<<<"
+rm -rf .pytype > /dev/null 2>&1
 uninstall pytype
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyright
 # https://github.com/microsoft/pyright
 ###############################################################################
 
-npm install -g pyright
-install_color "$(npm list -g --depth=0 | grep -E "pyright@.*")"
-results_color ">>>>>>>>>>>>>>>> Pyright"
+color_print ">>>>>>>>>>>>>>>> Pyright"
+npm install -g pyright > /dev/null 2>&1
 pyright . || true
-results_color "<<<<<<<<<<<<<<<<"
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyanalyze
 # https://github.com/quora/pyanalyze
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Pyanalyze"
 install pyanalyze
-results_color ">>>>>>>>>>>>>>>> Pyanalyze"
 if [ "$REPO_IS_A_PACKAGE" == true ]; then
     find . -type f -name "*.py" | grep -Ev "^./setup.py" | xargs python -m pyanalyze || true
 else
     find . -type f -name "*.py" | xargs python -m pyanalyze  || true
 fi
-results_color "<<<<<<<<<<<<<<<<"
 uninstall pyanalyze
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # InspectorTiger
 # https://github.com/thg-consulting/it
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> InspectorTiger"
 install it
-results_color ">>>>>>>>>>>>>>>> InspectorTiger"
 find . -type f -name "*.py" | xargs it || true
-results_color "<<<<<<<<<<<<<<<<"
 uninstall it
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyroma
@@ -107,11 +97,11 @@ uninstall it
 ###############################################################################
 
 if [ "$REPO_IS_A_PACKAGE" == true ]; then
+    color_print ">>>>>>>>>>>>>>>> Pyroma"
     install pyroma
-    results_color ">>>>>>>>>>>>>>>> Pyroma"
     pyroma . || true
-    results_color "<<<<<<<<<<<<<<<<"
     uninstall pyroma
+    color_print "<<<<<<<<<<<<<<<<"
 fi
 
 ###############################################################################
@@ -124,104 +114,104 @@ fi
 # - mccabe
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Flake8"
 install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
-results_color ">>>>>>>>>>>>>>>> Flake8"
 flake8 . --extend-ignore=ANN101,EXE001,H306,H404,H405,I100,I101,I201 --max-line-length "$MAX_LINE_LENGTH" || true
-results_color "<<<<<<<<<<<<<<<<"
 uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # pydocstyle
 # https://github.com/PyCQA/pydocstyle/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> pydocstyle"
 install pydocstyle
-results_color ">>>>>>>>>>>>>>>> pydocstyle"
 pydocstyle . --ignore=D200,D203,D212,D406,D407,D413 --ignore-decorators="overload" || true
-results_color "<<<<<<<<<<<<<<<<"
 uninstall pydocstyle
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pylint
 # https://www.pylint.org/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Pylint"
 install pylint
-results_color ">>>>>>>>>>>>>>>> Pylint"
 find . -type f -name "*.py" | xargs pylint --init-hook="import sys; sys.path.append('.')" --disable=too-few-public-methods,cyclic-import --max-line-length="$MAX_LINE_LENGTH" || true
-results_color "<<<<<<<<<<<<<<<<"
 uninstall pylint
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # isort
 # https://pycqa.github.io/isort/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> isort"
 install isort
-results_color ">>>>>>>>>>>>>>>> isort"
 isort . --diff --sl -l "$MAX_LINE_LENGTH" | colordiff
-results_color "<<<<<<<<<<<<<<<<"
 uninstall isort
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Black
 # https://black.readthedocs.io/en/stable/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Black"
 install black
-results_color ">>>>>>>>>>>>>>>> Black"
 black . --diff -l "$MAX_LINE_LENGTH" | colordiff
-results_color "<<<<<<<<<<<<<<<<"
 uninstall black
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # autopep8
 # https://github.com/hhatto/autopep8/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> autopep8"
 install autopep8
-results_color ">>>>>>>>>>>>>>>> autopep8"
 autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH" | colordiff
-results_color "<<<<<<<<<<<<<<<<"
 uninstall autopepe8
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Bandit
 # https://bandit.readthedocs.io/en/latest/
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Bandit"
 install bandit
-results_color ">>>>>>>>>>>>>>>> Bandit"
 bandit . -r || true
-results_color "<<<<<<<<<<<<<<<<"
 uninstall bandit
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyre and Pysa
 # https://pyre-check.org
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> Pyre"
 install pyre-check
-printf "yes\n." | pyre init
-results_color ">>>>>>>>>>>>>>>> Pyre"
+printf "yes\n." | pyre init > /dev/null 2>&1
 pyre || true
-results_color "<<<<<<<<<<<<<<<<"
 if [ ! -z "$INPUT_TAINT_MODELS_PATH" ]; then
-    results_color ">>>>>>>>>>>>>>>> Pysa"
+    color_print ">>>>>>>> Pysa"
     pyre analyze --taint-models-path="$INPUT_TAINT_MODELS_PATH" || true
-    results_color "<<<<<<<<<<<<<<<<"
+    color_print "<<<<<<<<"
 fi
 rm -rf .pyre
 rm .watchmanconfig .pyre_configuration
 uninstall pyre-check
+color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # docformatter
 # https://github.com/myint/docformatter
 ###############################################################################
 
+color_print ">>>>>>>>>>>>>>>> docformatter"
 install docformatter
-results_color ">>>>>>>>>>>>>>>> docformatter"
 docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
-results_color "<<<<<<<<<<<<<<<<"
 uninstall docformatter
+color_print "<<<<<<<<<<<<<<<<"
