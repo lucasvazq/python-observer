@@ -22,13 +22,16 @@ function color_print {
 
 function install {
     for arg in "$@"; do
-        uninstall "$arg" > /dev/null 2>&1
+        uninstall "$arg"
         pip install "$arg" > /dev/null 2>&1
     done
 }
 
 function uninstall {
-    yes | pip uninstall "$1"
+    function uninstall_command {
+        yes | pip uninstall "$1"
+    }
+    uninstall_command > /dev/null 2>&1
 }
 
 ###############################################################################
@@ -41,7 +44,6 @@ install mypy
 mypy /"$PWD" --strict --ignore-missing-imports || true
 rm -rf .mypy_cache > /dev/null 2>&1
 uninstall mypy
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # pytype
@@ -53,7 +55,6 @@ install pytype
 pytype . -d import-error,bad-return-type || true
 rm -rf .pytype > /dev/null 2>&1
 uninstall pytype
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyright
@@ -63,7 +64,6 @@ color_print "<<<<<<<<<<<<<<<<"
 color_print ">>>>>>>>>>>>>>>> Pyright"
 npm install -g pyright > /dev/null 2>&1
 pyright . || true
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyanalyze
@@ -78,7 +78,6 @@ else
     find . -type f -name "*.py" | xargs python -m pyanalyze  || true
 fi
 uninstall pyanalyze
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # InspectorTiger
@@ -89,7 +88,6 @@ color_print ">>>>>>>>>>>>>>>> InspectorTiger"
 install it
 find . -type f -name "*.py" | xargs it || true
 uninstall it
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyroma
@@ -101,8 +99,7 @@ if [ "$REPO_IS_A_PACKAGE" == true ]; then
     install pyroma
     pyroma . || true
     uninstall pyroma
-    color_print "<<<<<<<<<<<<<<<<"
-fi
+    fi
 
 ###############################################################################
 # Flake8
@@ -118,7 +115,6 @@ color_print ">>>>>>>>>>>>>>>> Flake8"
 install flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
 flake8 . --extend-ignore=ANN101,EXE001,H306,H404,H405,I100,I101,I201 --max-line-length "$MAX_LINE_LENGTH" || true
 uninstall flake8 pep8-naming flake8-bugbear flake8-comprehensions flake8-assertive flake8-import-order hacking flake8-annotations flake8-broken-line flake8-debugger flake8-builtins flake8-deprecated flake8-executable darglint
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # pydocstyle
@@ -129,7 +125,6 @@ color_print ">>>>>>>>>>>>>>>> pydocstyle"
 install pydocstyle
 pydocstyle . --ignore=D200,D203,D212,D406,D407,D413 --ignore-decorators="overload" || true
 uninstall pydocstyle
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pylint
@@ -140,7 +135,6 @@ color_print ">>>>>>>>>>>>>>>> Pylint"
 install pylint
 find . -type f -name "*.py" | xargs pylint --init-hook="import sys; sys.path.append('.')" --disable=too-few-public-methods,cyclic-import --max-line-length="$MAX_LINE_LENGTH" || true
 uninstall pylint
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # isort
@@ -151,7 +145,6 @@ color_print ">>>>>>>>>>>>>>>> isort"
 install isort
 isort . --diff --sl -l "$MAX_LINE_LENGTH" | colordiff
 uninstall isort
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Black
@@ -162,7 +155,6 @@ color_print ">>>>>>>>>>>>>>>> Black"
 install black
 black . --diff -l "$MAX_LINE_LENGTH" | colordiff
 uninstall black
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # autopep8
@@ -173,7 +165,6 @@ color_print ">>>>>>>>>>>>>>>> autopep8"
 install autopep8
 autopep8 . -r -d --max-line-length "$MAX_LINE_LENGTH" | colordiff
 uninstall autopepe8
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Bandit
@@ -184,7 +175,6 @@ color_print ">>>>>>>>>>>>>>>> Bandit"
 install bandit
 bandit . -r || true
 uninstall bandit
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # Pyre and Pysa
@@ -203,7 +193,6 @@ fi
 rm -rf .pyre
 rm .watchmanconfig .pyre_configuration
 uninstall pyre-check
-color_print "<<<<<<<<<<<<<<<<"
 
 ###############################################################################
 # docformatter
@@ -214,4 +203,3 @@ color_print ">>>>>>>>>>>>>>>> docformatter"
 install docformatter
 docformatter . -r --make-summary-multi-line --pre-summary-newline --wrap-summaries "$MAX_LINE_LENGTH" --wrap-descriptions "$MAX_LINE_LENGTH" | colordiff
 uninstall docformatter
-color_print "<<<<<<<<<<<<<<<<"
