@@ -1,25 +1,7 @@
 #!/bin/bash
 
-printf "LOG"
-
-if [ ! -z "$INPUT_REQUIREMENTS" ]; then
-    "$($INPUT_REQUIREMENTS)"
-fi
-
-if [ ! -z "$INPUT_MAX_LINE_LENGTH" ]; then
-    MAX_LINE_LENGTH="$INPUT_MAX_LINE_LENGTH"
-else
-    MAX_LINE_LENGTH=79
-fi
-
-if [ ! -z "$INPUT_REPO_IS_A_PACKAGE" ]; then
-    REPO_IS_A_PACKAGE="$INPUT_REPO_IS_A_PACKAGE"
-else
-    REPO_IS_A_PACKAGE=false
-fi
-
 function color_print {
-    printf "\e[105m $1 \e[0m\n"
+    printf "\e[105m %s \e[0m\n" "$1"
 }
 
 function install {
@@ -33,8 +15,24 @@ function uninstall {
     function uninstall_command {
         yes | pip uninstall "$1"
     }
-    uninstall_command > /dev/null 2>&1
+    uninstall_command "$1" > /dev/null 2>&1
 }
+
+if [ -n "$INPUT_REQUIREMENTS" ]; then
+    eval "$INPUT_REQUIREMENTS" > /dev/null 2>&1
+fi
+
+if [ -n "$INPUT_MAX_LINE_LENGTH" ]; then
+    MAX_LINE_LENGTH="$INPUT_MAX_LINE_LENGTH"
+else
+    MAX_LINE_LENGTH=79
+fi
+
+if [ -n "$INPUT_REPO_IS_A_PACKAGE" ]; then
+    REPO_IS_A_PACKAGE="$INPUT_REPO_IS_A_PACKAGE"
+else
+    REPO_IS_A_PACKAGE=false
+fi
 
 ###############################################################################
 # mypy
@@ -187,7 +185,7 @@ color_print ">>>>>>>>>>>>>>>> Pyre"
 install pyre-check
 printf "yes\n." | pyre init
 pyre || true
-if [ ! -z "$INPUT_TAINT_MODELS_PATH" ]; then
+if [ -n "$INPUT_TAINT_MODELS_PATH" ]; then
     color_print ">>>>>>>> Pysa"
     pyre analyze --taint-models-path="$INPUT_TAINT_MODELS_PATH" || true
     color_print "<<<<<<<<"
