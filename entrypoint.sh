@@ -1,5 +1,7 @@
 #!/bin/bash
 
+printf "LOG"
+
 if [ ! -z "$INPUT_REQUIREMENTS" ]; then
     "$($INPUT_REQUIREMENTS)"
 fi
