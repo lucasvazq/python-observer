@@ -183,7 +183,7 @@ uninstall bandit
 
 color_print ">>>>>>>>>>>>>>>> Pyre"
 install pyre-check
-printf "yes\n." | pyre init > /dev/null 2>&1
+printf "yes\n." | pyre init
 pyre || true
 if [ ! -z "$INPUT_TAINT_MODELS_PATH" ]; then
     color_print ">>>>>>>> Pysa"
