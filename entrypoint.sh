@@ -99,7 +99,7 @@ if [ "$REPO_IS_A_PACKAGE" == true ]; then
     install pyroma
     pyroma . || true
     uninstall pyroma
-    fi
+fi
 
 ###############################################################################
 # Flake8
