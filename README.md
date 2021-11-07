@@ -42,6 +42,7 @@ You can found more details looking at [entrypoint.sh](./entrypoint.sh)
 Here I list some recommended tools that aren't included in this action, but can be used in the development of Python code:
   - [Sourcery.ai](https://sourcery.ai/)
   - [MonkeyType](https://github.com/Instagram/MonkeyType)
+  - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
 
 ## Parameters
 
